@@ -8,8 +8,6 @@ function App() {
   let [minimoArr, setMinimoArr] = useState(0);
   let [maximoArr, setMaximoArr] = useState(0);
   let [array, setArray] = useState([]);
-  //let n = Math.floor((Math.random() * maximoArr) + minimoArr); //variavel 'n' apenas para setar o 
-  //valor inicial do index que será removido do RandomIndex para não bugar o array
   let [randomIndex, setRandomIndex] = useState(0);
   let [inputMin, setInputMin] = useState(0);
   let [inputMax, setInputMax] = useState(0);
@@ -51,23 +49,6 @@ function App() {
     }
     setArray(myArray);
 };
-
-  //Gerador de números sem repetição
-  const gerarN = () => {
-    if (minimoArr === 0 && maximoArr === 0){
-      setNumber('Por favor, coloque os valores minimo e máximo para começar a gerar números :)')
-    } else if (array == 0){
-      setNumber('Acabou números que poderiam ser gerados sem repetir, coloque novamente caso queira novos números :)');
-    } else {
-    //a primeira vez que roda esse setRandomIndex o value é sempre 0, acaba removendo o valor minimo antes, mas preciso deste valor 0... fix later
-    setRandomIndex(() => getRandomNumberForIndex(0, array.length-1));
-
-    let numeroAleatorio = array[randomIndex];
-    array.splice(randomIndex, 1);
-    setNumber(numeroAleatorio);
-    } 
-  };
-
   //função que ao clicar coloca o valor máximo e máximo do array
   const handleSubmit = (event) => {
     if (inputMax < inputMin){
@@ -77,11 +58,26 @@ function App() {
     } else {
     setMinimoArr(inputMin);
     setMaximoArr(inputMax);
-    alert(`Valor min: ${inputMin} e valor max: ${inputMax}`);
     createArrayOfNumbers(inputMin, inputMax);
-    setRandomIndex(() => getRandomNumberForIndex(minimoArr, maximoArr));
+    setRandomIndex(() => getRandomNumberForIndex(inputMin, inputMax));
     event.preventDefault();
   }};
+
+  //Gerador de números sem repetição
+  const gerarN = () => {
+    if (minimoArr === 0 && maximoArr === 0){
+      setNumber('Por favor, coloque os valores minimo e máximo para começar a gerar números :)')
+    } else if (array.length === 0){
+      setNumber('Acabou números que poderiam ser gerados sem repetir, coloque novamente caso queira novos números :)');
+    } else {
+    setRandomIndex(() => getRandomNumberForIndex(0, array.length-1));
+    let numeroAleatorio = array[randomIndex];
+    array.splice(randomIndex, 1);
+    setNumber(numeroAleatorio);
+    } 
+  };
+
+
 
 
   return (
