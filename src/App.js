@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 function App() {
-  const [number, setNumber] = useState('Gere um numero aleatorio clicando acima');
+  const [number, setNumber] = useState('Gere um número aleatório colocando valor minimo e máximo acima,\n clique envie e gere os números');
   
   //variáveis q armazenam o limite do array
   let [minimoArr, setMinimoArr] = useState(0);
@@ -86,8 +86,8 @@ function App() {
         <h1>O valor mínimo é {minimoArr}, e o valor máximo é {maximoArr}</h1>
         <div>
           <form onSubmit={handleSubmit}>
-          <input type="number" onChange={handleInputOnChangeMin} placeholder="Número minimo" />
-          <input type="number" onChange={handleInputOnChangeMax} placeholder="Número máximo" />
+          <input type="number" onChange={handleInputOnChangeMin} placeholder="Número minimo" min="-1000000" max="1000000" />
+          <input type="number" onChange={handleInputOnChangeMax} placeholder="Número máximo" min="-1000000" max="1000000" />
             <input type="submit" value="Enviar Valores" />
           </form>
         </div>
